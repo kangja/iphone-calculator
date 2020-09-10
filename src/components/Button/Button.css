@@ -12,13 +12,23 @@
 
 /* when the Button has zero */
 .Button.zero {
- width: 250px;
+ width: 230px;
 
  /* it means to set the element on the first column, and span two columns */
  grid-column: 1 / span 2;
-
+ 
  border-radius: 57.5px;
  position: relative;
  justify-content: flex-start;
  padding-left: 43px;
+}
+
+.Button.function {
+  color: black;
+  background: #a5a5a5;
+}
+
+.Button.operator {
+  background: #f1a33c;
+  
 }
