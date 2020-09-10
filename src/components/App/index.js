@@ -5,11 +5,52 @@ import "./App.css"
 const App = () => {
   const [value, setValue] = useState("0")
 
-  const handleButtonPress = (content) => () => { 
+  // in the beginning, we don't have any memory. But, when we press operator buttons, 
+  const [memory, setMemory] = useState(null);
 
-    //make the value a number first and make everything back to strings.
-    setValue( parseFloat(value) + content.toString( ))
-  }
+  const handleButtonPress = (content) => () => {
+    const num = parseFloat(value);
+
+    if (content === "AC") {
+      setValue("0");
+      setMemory(null);
+      return;
+    }
+
+    if (content === "±") {
+      setValue((num * -1).toString());
+      return;
+    };
+
+    if (content === "%") {
+      setValue((num / 100).toString());
+      setMemory(null);
+      return;
+    }
+
+    if (content === "+") {
+      setMemory(parseFloat(value));
+      setValue("0");
+    }
+
+    if (content === "−") {
+      setMemory(parseFloat(value));
+      setValue("0");
+    }
+
+    if (content === "×") {
+      setMemory(parseFloat(value));
+      setValue("0");
+    }
+
+    if (content === "÷") {
+      setMemory(parseFloat(value));
+      setValue("0");
+    }
+
+    //make the value a number first and make everything back to strings. Having parseFloat infront gets rid of the leading 0.
+    setValue((parseFloat(num + content)).toString());
+  };
 
   return <div className="App">
     <div className="top">4:43</div>
