@@ -8,12 +8,16 @@ const App = () => {
   // in the beginning, we don't have any memory. But, when we press operator buttons, 
   const [memory, setMemory] = useState(null);
 
+  // keeping track of operator
+  const [operator, setOperator] = useState(null);
+
   const handleButtonPress = (content) => () => {
     const num = parseFloat(value);
 
     if (content === "AC") {
       setValue("0");
       setMemory(null);
+      setOperator(null);
       return;
     }
 
@@ -25,29 +29,56 @@ const App = () => {
     if (content === "%") {
       setValue((num / 100).toString());
       setMemory(null);
+      setOperator(null);
       return;
     }
 
     if (content === "+") {
       setMemory(parseFloat(value));
       setValue("0");
+      setOperator("+");
+      return;
     }
 
     if (content === "−") {
       setMemory(parseFloat(value));
       setValue("0");
+      setOperator("−");
+      return;
     }
 
     if (content === "×") {
       setMemory(parseFloat(value));
       setValue("0");
+      setOperator("×");
+      return;
     }
 
     if (content === "÷") {
       setMemory(parseFloat(value));
       setValue("0");
+      setOperator("÷");
+      return;
     }
 
+    if (content === "=") {
+      // if there is no operatur, don't do anything
+      if (!operator) return;
+
+      if (operator === "+") {
+        setValue((memory + parseFloat(value)).toString());
+      } else if (operator === "−") {
+        setValue((memory - parseFloat(value)).toString())
+      } else if (operator === "×") {
+        setValue((memory * parseFloat(value)).toString())
+      } else if (operator === "÷") {
+        setValue((memory / parseFloat(value)).toString());
+      }
+      setMemory(null);
+      setOperator(null);
+      return;
+    }
+  
     //make the value a number first and make everything back to strings. Having parseFloat infront gets rid of the leading 0.
     setValue((parseFloat(num + content)).toString());
   };
@@ -76,14 +107,8 @@ const App = () => {
       <Button onButtonClick={handleButtonPress} content= "+" type="operator"/>
       <Button onButtonClick={handleButtonPress} content= "0" />
       <Button onButtonClick={handleButtonPress} content= "." />
-      <Button onButtonClick={handleButtonPress} content= "= " type="operator"/>
+      <Button onButtonClick={handleButtonPress} content= "=" type="operator"/>
       
-      
-      
-      
-
-
-
     </div>
     <div className="button">-</div>
   </div> 
