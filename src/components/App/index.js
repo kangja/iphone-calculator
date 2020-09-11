@@ -34,13 +34,37 @@ const App = () => {
     }
 
     if (content === "+") {
-      setMemory(parseFloat(value));
+      // if there is a previous operation. It means we are doing chaining. 
+      if (operator !== null) {
+        if (operator === "+") {
+          setMemory(memory + parseFloat(value));
+        } else if (operator === "−") {
+          setMemory(memory - parseFloat(value));
+        } else if (operator === "×") {
+          setMemory(memory * parseFloat(value));
+        } else if (operator === "÷") {
+          setMemory(memory / parseFloat(value));
+        }
+      } else {
+        setMemory(parseFloat(value));
+      }
       setValue("0");
       setOperator("+");
       return;
     }
 
     if (content === "−") {
+      if (operator !== null) {
+        if (operator === "+") {
+          setValue((memory + parseFloat(value)).toString());
+        } else if (operator === "−") {
+          setValue((memory - parseFloat(value)).toString())
+        } else if (operator === "×") {
+          setValue((memory * parseFloat(value)).toString())
+        } else if (operator === "÷") {
+          setValue((memory / parseFloat(value)).toString());
+        }
+      }
       setMemory(parseFloat(value));
       setValue("0");
       setOperator("−");
@@ -48,6 +72,17 @@ const App = () => {
     }
 
     if (content === "×") {
+      if (operator !== null) {
+        if (operator === "+") {
+          setValue((memory + parseFloat(value)).toString());
+        } else if (operator === "−") {
+          setValue((memory - parseFloat(value)).toString())
+        } else if (operator === "×") {
+          setValue((memory * parseFloat(value)).toString())
+        } else if (operator === "÷") {
+          setValue((memory / parseFloat(value)).toString());
+        }
+      }
       setMemory(parseFloat(value));
       setValue("0");
       setOperator("×");
@@ -55,6 +90,17 @@ const App = () => {
     }
 
     if (content === "÷") {
+      if (operator !== null) {
+        if (operator === "+") {
+          setValue((memory + parseFloat(value)).toString());
+        } else if (operator === "−") {
+          setValue((memory - parseFloat(value)).toString())
+        } else if (operator === "×") {
+          setValue((memory * parseFloat(value)).toString())
+        } else if (operator === "÷") {
+          setValue((memory / parseFloat(value)).toString());
+        }
+      }
       setMemory(parseFloat(value));
       setValue("0");
       setOperator("÷");
