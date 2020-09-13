@@ -11,6 +11,8 @@ const App = () => {
   // keeping track of operator
   const [operator, setOperator] = useState(null);
 
+  
+
   const handleButtonPress = (content) => () => {
     const num = parseFloat(value);
 
@@ -30,6 +32,14 @@ const App = () => {
       setValue((num / 100).toString());
       setMemory(null);
       setOperator(null);
+      return;
+    }
+
+    // if our value already has ".", don't do anything. Just return.  
+    if (content === ".") {
+      if (value.includes(".")) return;
+
+      setValue(value + ".")
       return;
     }
 
@@ -56,16 +66,17 @@ const App = () => {
     if (content === "−") {
       if (operator !== null) {
         if (operator === "+") {
-          setValue((memory + parseFloat(value)).toString());
+          setMemory(memory + parseFloat(value));
         } else if (operator === "−") {
-          setValue((memory - parseFloat(value)).toString())
+          setMemory(memory - parseFloat(value));
         } else if (operator === "×") {
-          setValue((memory * parseFloat(value)).toString())
+          setMemory(memory * parseFloat(value));
         } else if (operator === "÷") {
-          setValue((memory / parseFloat(value)).toString());
+          setMemory(memory / parseFloat(value));
         }
+      } else {
+        setMemory(parseFloat(value));
       }
-      setMemory(parseFloat(value));
       setValue("0");
       setOperator("−");
       return;
@@ -74,16 +85,17 @@ const App = () => {
     if (content === "×") {
       if (operator !== null) {
         if (operator === "+") {
-          setValue((memory + parseFloat(value)).toString());
+          setMemory(memory + parseFloat(value));
         } else if (operator === "−") {
-          setValue((memory - parseFloat(value)).toString())
+          setMemory(memory - parseFloat(value));
         } else if (operator === "×") {
-          setValue((memory * parseFloat(value)).toString())
+          setMemory(memory * parseFloat(value));
         } else if (operator === "÷") {
-          setValue((memory / parseFloat(value)).toString());
+          setMemory(memory / parseFloat(value));
         }
+      } else {
+        setMemory(parseFloat(value));
       }
-      setMemory(parseFloat(value));
       setValue("0");
       setOperator("×");
       return;
@@ -92,16 +104,17 @@ const App = () => {
     if (content === "÷") {
       if (operator !== null) {
         if (operator === "+") {
-          setValue((memory + parseFloat(value)).toString());
+          setMemory(memory + parseFloat(value));
         } else if (operator === "−") {
-          setValue((memory - parseFloat(value)).toString())
+          setMemory(memory - parseFloat(value));
         } else if (operator === "×") {
-          setValue((memory * parseFloat(value)).toString())
+          setMemory(memory * parseFloat(value));
         } else if (operator === "÷") {
-          setValue((memory / parseFloat(value)).toString());
+          setMemory(memory / parseFloat(value));
         }
+      } else {
+        setMemory(parseFloat(value));
       }
-      setMemory(parseFloat(value));
       setValue("0");
       setOperator("÷");
       return;
@@ -124,10 +137,15 @@ const App = () => {
       setOperator(null);
       return;
     }
+
+    if (value[value.length - 1] === ".") {
+      setValue(value + content);
+    } else {
   
-    //make the value a number first and make everything back to strings. Having parseFloat infront gets rid of the leading 0.
-    setValue((parseFloat(num + content)).toString());
-  };
+      //make the value a number first and make everything back to strings. Having parseFloat infront gets rid of the leading 0.
+      setValue((parseFloat(num + content)).toString());
+    };
+  }
 
   return <div className="App">
     <div className="top">4:43</div>
