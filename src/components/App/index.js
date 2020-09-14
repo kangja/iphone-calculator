@@ -1,8 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import menu from "../../assets/menu.png"
 import Button from "../Button"
 import "./App.css"
 
 const App = () => {
+  // setting up real time date and time
+const [time, setTime] = useState(new Date())
+
   const [value, setValue] = useState("0")
 
   // in the beginning, we don't have any memory. But, when we press operator buttons, 
@@ -148,7 +152,11 @@ const App = () => {
   }
 
   return <div className="App">
-    <div className="top">4:43</div>
+    <div className="top">
+      <div className="time">{time.getHours()}:{time.getMinutes()}</div>
+      <div className="menu"><img src={menu} alt="menu" /></div>
+
+      </div>
     <div className="display">{value}</div>
     <div className="buttons">
 
