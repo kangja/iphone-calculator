@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import menu from "../../assets/menu.png"
+import commafy from "../../utils/commafy"; 
 import Button from "../Button"
 import "./App.css"
 
@@ -15,6 +16,10 @@ const [time, setTime] = useState(new Date())
   // keeping track of operator
   const [operator, setOperator] = useState(null);
 
+  // To update time
+  // useEffect(() => {
+  //   setTime(new Date())
+  // }, [(new Date()).getMinutes()])
   
 
   const handleButtonPress = (content) => () => {
@@ -153,11 +158,20 @@ const [time, setTime] = useState(new Date())
 
   return <div className="App">
     <div className="top">
-      <div className="time">{time.getHours()}:{time.getMinutes()}</div>
+      <div className="time">
+        {time
+          .getHours()
+          .toString()
+          .padStart(2, "0")}
+        :{time
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}
+      </div>
       <div className="menu"><img src={menu} alt="menu" /></div>
 
       </div>
-    <div className="display">{value}</div>
+    <div className="display">{commafy(value)}</div>
     <div className="buttons">
 
       {/* props used here is "content" of a button. The value of content will be AC, 0, +, -, and etc. */}
@@ -182,7 +196,7 @@ const [time, setTime] = useState(new Date())
       <Button onButtonClick={handleButtonPress} content= "=" type="operator"/>
       
     </div>
-    <div className="button">-</div>
+    <div className= "bottom" />
   </div> 
 }
 
